@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject hexObjectPrefab;
-   
 
     static int canvasHeight = 8;
     static int canvasWidth = 9;
@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public int X = canvasWidth;
     public int Y = canvasHeight;
 
+    public TextMeshProUGUI scoreText;
+    public int score;
+
     Hexagon firstHexagon;
     Hexagon secondHexagon;
     Hexagon thirdHexagon;
@@ -29,13 +32,11 @@ public class GameManager : MonoBehaviour
         GenerateHexagon();
         StartCoroutine(DestroyController());
     }
-
     void Update()
     {
-
+        scoreText.text = score.ToString();
 
     }
-
     void GenerateHexagon()
     {
         float hexStartX = (canvasHeight / 2 * -hexGapX) - hexGapX;
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-    
     bool ScanForExplode()
     {
         
@@ -107,7 +107,6 @@ public class GameManager : MonoBehaviour
 
                     int thirdX = firstHexagon.x;
                     int thirdY = firstHexagon.y;
-
                     thirdX--;
 
                     if (firstHexagon.x % 2 == 0)
@@ -129,9 +128,12 @@ public class GameManager : MonoBehaviour
     IEnumerator DestroyAndRegenerate()
     {
         Destroy(firstHexagon.gameObject);
+        score += 5;
         Destroy(secondHexagon.gameObject);
+        score += 5;
         Destroy(thirdHexagon.gameObject);
-        
+        score += 5;
+
         yield return new WaitForSeconds(0.2f);
 
         CreateHexagon(firstHexagon.hexStartX, firstHexagon.hexStartY, firstHexagon.x, firstHexagon.y);
@@ -141,22 +143,17 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator DestroyController()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         bool searchExplode = true;
-        Debug.Log("before while");
         while (searchExplode)
         {
-            Debug.Log("in while");
             searchExplode = ScanForExplode();
             if (searchExplode)
             {
                 StartCoroutine(DestroyAndRegenerate());
             }
-            Debug.Log(searchExplode);
             yield return new WaitForSeconds(0.2f);
-            
         }
-
     }
     void CreateHexagon(float hexStartX, float hexStartY, int canvasXPosition, int canvasYPosition)
     {

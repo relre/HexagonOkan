@@ -17,15 +17,12 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
-        
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        ObjectSelecter();
     }
 
     void Update()
     {
         SelectObject();
-        
         if(isRotateOff)
         {
             Hexagon firstHexagon = selectedHexagonGameObjects[0].gameObject.GetComponent<Hexagon>();
@@ -37,8 +34,6 @@ public class InputManager : MonoBehaviour
             thirdHexagon.transform.position = Vector2.MoveTowards(thirdHexagon.transform.position, firstHexagonTempPosition, Time.deltaTime * 2f);
 
         }
-        
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isRotateOff = true;
@@ -52,23 +47,13 @@ public class InputManager : MonoBehaviour
     }
     private void SelectObject()
     {
-        if (isRotateOff)
-        {
-         // return;
-        }
- 
-  
         if (Input.GetMouseButtonDown(0))
         {
-            
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-            
             if (hit.collider != null)
             {
-                
                 ClearOutlines();
                 selectedHexagonGameObjects = new GameObject[3];
                 GameObject firstHexagonGameObject = hit.collider.gameObject;
@@ -121,22 +106,12 @@ public class InputManager : MonoBehaviour
 
                 firstHexagonTempPosition = firstHexagon.transform.position;
                 secondHexagonTempPosition = secondHexagon.transform.position;
-                thirdHexagonTempPosition = thirdHexagon.transform.position;
-
-
-    
-
-                
+                thirdHexagonTempPosition = thirdHexagon.transform.position;  
             }
-           
-
         }
-
-
     }
     void Rotate()
     {
-
         Hexagon firstHexagon = selectedHexagonGameObjects[0].gameObject.GetComponent<Hexagon>();
         Hexagon secondHexagon = selectedHexagonGameObjects[1].gameObject.GetComponent<Hexagon>();
         Hexagon thirdHexagon = selectedHexagonGameObjects[2].gameObject.GetComponent<Hexagon>();
@@ -182,29 +157,5 @@ public class InputManager : MonoBehaviour
             }
         }
     }
-
-
-
-    public void ObjectSelecter()
-    {
-        foreach (var AllObject in FindObjectsOfType(typeof(GameObject)) as GameObject[])
-        {
-            if (AllObject.name == "Hexagon(Clone)")
-            {
-                AllSelectableObject.Add(AllObject);
-            }
-        }
-        for (int i = 0; i < AllSelectableObject.Count; i++)
-        {
-            float x = Mathf.Abs(this.transform.position.x - AllSelectableObject[i].transform.position.x);
-            float y = Mathf.Abs(this.transform.position.y - AllSelectableObject[i].transform.position.y);
-
-
-            if (x > 0)
-            {
-                NearObjects.Add(AllSelectableObject[i]);
-            }
-
-        }
-    }
+    
 }
