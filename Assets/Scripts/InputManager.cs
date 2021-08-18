@@ -32,13 +32,11 @@ public class InputManager : MonoBehaviour
             firstHexagon.transform.position = Vector2.MoveTowards(firstHexagon.transform.position, secondHexagonTempPosition, Time.deltaTime * 2f);
             secondHexagon.transform.position = Vector2.MoveTowards(secondHexagon.transform.position, thirdHexagonTempPosition, Time.deltaTime * 2f);
             thirdHexagon.transform.position = Vector2.MoveTowards(thirdHexagon.transform.position, firstHexagonTempPosition, Time.deltaTime * 2f);
-
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isRotateOff = true;
             Rotate();
-
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
