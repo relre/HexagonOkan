@@ -132,15 +132,16 @@ public class GameManager : MonoBehaviour
         Destroy(secondHexagon.gameObject);
         Destroy(thirdHexagon.gameObject);
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
 
         CreateHexagon(firstHexagon.hexStartX, firstHexagon.hexStartY, firstHexagon.x, firstHexagon.y);
         CreateHexagon(secondHexagon.hexStartX, secondHexagon.hexStartY, secondHexagon.x, secondHexagon.y);
         CreateHexagon(thirdHexagon.hexStartX, thirdHexagon.hexStartY, thirdHexagon.x, thirdHexagon.y);
 
     }
-    IEnumerator DestroyController()
+    public IEnumerator DestroyController()
     {
+        yield return new WaitForSeconds(3f);
         bool searchExplode = true;
         Debug.Log("before while");
         while (searchExplode)
@@ -152,12 +153,10 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(DestroyAndRegenerate());
             }
             Debug.Log(searchExplode);
-            yield return new WaitForSeconds(2f);
-            // TÜM TURNLERDE ÇAÐIR // OYUN BAÞINDA ÇAÐIR
+            yield return new WaitForSeconds(0.2f);
+            
         }
-           
-        
-       
+
     }
     void CreateHexagon(float hexStartX, float hexStartY, int canvasXPosition, int canvasYPosition)
     {
