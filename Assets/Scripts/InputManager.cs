@@ -14,7 +14,6 @@ public class InputManager : MonoBehaviour
     GameObject[] selectedHexagonGameObjects = new GameObject[3];
 
     bool isRotateOff = false;
-
     void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();

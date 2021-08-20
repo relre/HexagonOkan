@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Hexagon : MonoBehaviour
@@ -9,16 +10,6 @@ public class Hexagon : MonoBehaviour
     public Color color;
     public float hexStartX;
     public float hexStartY;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
     public void ShowOutline()
     {
         transform.GetChild(0).gameObject.SetActive(true);
@@ -27,5 +18,4 @@ public class Hexagon : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(false);
     }
-  
 }

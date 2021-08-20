@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviour
 {
     public GameObject hexObjectPrefab;
     public GameObject bombObjectPrefab;
-
+    
     static int canvasHeight = 8;
     static int canvasWidth = 9;
     static float hexGapX = 0.88f;
     static float hexGapY = 1f;
 
+    bool bombInGameNull;
     float initialhexStartY = canvasWidth / 2 * -hexGapY;
     public Color[] hexagonColors;
 
@@ -28,8 +29,7 @@ public class GameManager : MonoBehaviour
     Hexagon firstHexagon;
     Hexagon secondHexagon;
     Hexagon thirdHexagon;
-
-
+    
     public GameObject[,] tempHexagons = new GameObject[canvasWidth, canvasHeight];
 
     void Start()
@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
         Invoke("StartGameDelay", 2.5f);
         GenerateHexagon();
         StartCoroutine(DestroyController());
-
     }
     void Update()
     {
@@ -162,7 +161,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         bool searchExplode = true;
-        bool bombInGameNull;
+        
         if (GameObject.FindGameObjectWithTag("HexagonBomb") == null)
         {
             bombInGameNull = true;
@@ -170,13 +169,15 @@ public class GameManager : MonoBehaviour
         else
         {
             bombInGameNull = false;
+            
         }
         while (searchExplode)
         {
             searchExplode = ScanForExplode();
             if (searchExplode)
             {
-                Debug.Log(bombInGameNull);
+            
+                
                 if (score < 1000 && bombInGameNull)
                 {
                      StartCoroutine(DestroyAndRegenerateHexagon());

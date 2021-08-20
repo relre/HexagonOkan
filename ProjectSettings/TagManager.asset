@@ -13,6 +13,7 @@ TagManager:
   - HexagonColor5
   - GameManager
   - HexagonBomb
+  - HexagonLeftText
   layers:
   - Default
   - TransparentFX
